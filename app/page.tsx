@@ -1,6 +1,6 @@
 "use client";
 
-import TestGit from "@/components/home/TestGit";
+import ShopByCategorie from "@/components/home/ShopByCategorie";
 import Welcome from "@/components/home/Welcome";
 import NavBar from "@/components/NavBar";
 import { useState } from "react";
@@ -10,7 +10,7 @@ export default function Home() {
     <section className="flex flex-col ">
       {/* <NavBar /> */}
       {/* <Welcome /> */}
-      <TestGit />
+      <ShopByCategorie />
       <div></div>
     </section>
   );
