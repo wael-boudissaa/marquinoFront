@@ -13,12 +13,11 @@ import Footer from "./Footer";
 
 const CarousellRating = () => {
   return (
-    <div className=" bg-gray-100 flex flex-col w-full h-screen ">
+    <div className=" bg-gray-100 flex flex-col w-full h-full my-5 ">
       <h2 className="text-2xl p-5 font-semibold  ">
         People opionon about us :{" "}
       </h2>
       <CarouselSpacing />
-      <Footer />
     </div>
   );
 };

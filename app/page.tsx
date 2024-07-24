@@ -3,6 +3,7 @@
 import CarousellRating, {
   CarouselSpacing,
 } from "@/components/home/CarousellRating";
+import Footer from "@/components/home/Footer";
 import ShopByCategorie from "@/components/home/ShopByCategorie";
 
 import Welcome from "@/components/home/Welcome";
@@ -16,6 +17,7 @@ export default function Home() {
       {/* <Welcome /> */}
       <ShopByCategorie />
       <CarousellRating />
+      <Footer />
     </div>
   );
 }
