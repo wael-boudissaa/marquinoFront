@@ -1,0 +1,18 @@
+import Image from "next/image";
+import React from "react";
+
+const Footer = () => {
+  return (
+    <div className="flex flex-col bg-white h-full px-14 py-6">
+      <Image alt="" src={"/images/esi.png"} width={150} height={150} />
+      <div
+        style={{
+          backgroundImage: `url("/images/wolf.jpeg")`,
+        }}
+        className="bg-cover py-4 bg-center  h-96 flex mr-5 flex-col items-center justify-end"
+      ></div>
+    </div>
+  );
+};
+
+export default Footer;
