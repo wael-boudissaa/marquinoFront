@@ -4,6 +4,7 @@ import CarousellRating, {
   CarouselSpacing,
 } from "@/components/home/CarousellRating";
 import Footer from "@/components/home/Footer";
+import HeroSection from "@/components/home/HeroSection";
 import ShopByCategorie from "@/components/home/ShopByCategorie";
 
 import Welcome from "@/components/home/Welcome";
@@ -13,8 +14,9 @@ export default function Home() {
   const [thiss, setThis] = useState<number>(3);
   return (
     <div className="flex flex-col ">
-      {/* <NavBar /> */}
+      <NavBar />
       {/* <Welcome /> */}
+      <HeroSection />
       <ShopByCategorie />
       <CarousellRating />
       <Footer />
