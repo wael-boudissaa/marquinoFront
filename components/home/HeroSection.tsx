@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const HeroSection = () => {
   return (
     <div
-      className="flex flex-col w-full h-screen bg-cover bg-cover "
+      className="flex flex-col w-full h-screen bg-cover "
       style={{
         backgroundImage: `url("")`,
       }}

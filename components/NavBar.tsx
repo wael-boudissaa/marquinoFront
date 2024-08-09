@@ -3,8 +3,9 @@ import imga from "../public/images/esi.png";
 import Image from "next/image";
 const NavBar = () => {
   return (
-    <div className="flex flex-row justify-between items-center px-14 py-5 w-full border-black border-b-2 ">
+    <div className="flex flex-row justify-between fixed z-10 items-center px-14 py-5 w-full border-black border-b-2 bg-white ">
       <div>
+        {/* FIXME: this section is for the image */}
         {/* <Image width={100} height={100} src={imga} alt="logo" /> */}
         <h1 className="text-3xl text-black font-bold ">Marquino</h1>
       </div>
