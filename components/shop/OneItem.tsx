@@ -1,22 +1,23 @@
 import Image from "next/image";
 import React from "react";
-
-const OneItem = () => {
+interface OneItemProps {
+  nameProduct: string;
+  price: string; // Depending on how you handle prices (string or number)
+}
+const OneItem: React.FC<OneItemProps> = ({ nameProduct, price }) => {
   return (
-    <div className=" flex flex-col border w-1/5 px-5 py-4">
+    <div className="flex flex-col border w-1/5 px-5 py-4">
       <div>
         <Image
           width={300}
           height={300}
-          alt="image"
-          src={"/images/product1.png"}
+          alt="Product Image"
+          src={"/images/product1.png"} // Ensure src points to a valid path
         />
       </div>
       <div>
-        <h1 className="text-lg">
-          Electric Pump Air Compressor Portable Tire Inflator
-        </h1>
-        <p className="font-semibold ">12000.00 DZD</p>
+        <h1 className="text-lg">{nameProduct}</h1>
+        <p className="font-semibold ">{price}</p>
       </div>
     </div>
   );

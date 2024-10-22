@@ -1,8 +1,27 @@
-import React from "react";
+"use client";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { Slider } from "@/components/ui/slider";
 import { SliderProps } from "@mui/material/Slider/Slider";
+
+interface categorie {
+  idCategorie: string;
+  nameCategorie: string;
+}
 const SideBar = () => {
+  const [categorie, setCategorie] = useState<categorie[]>([]);
+  const fetchCategories = useCallback(async () => {
+    try {
+      const result = await fetchCategorie();
+      setCategorie(result);
+    } catch (err) {
+      throw new Error("failed");
+    }
+  }, []);
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
   return (
     <div className="flex flex-col w-1/5">
       <div className="flex flex-col px-12 marginfrombody  ">
@@ -11,13 +30,14 @@ const SideBar = () => {
         <div className=" flex flex-col my-6">
           <h1 className="text-lg font-semibold">Product Categorie </h1>
           <hr />
-          <p className="my-2">Categorie 1</p>
-          <p className="my-2">Categorie 1</p>
-          <p className="my-2">Categorie 1</p>
-          <p className="my-2">Categorie 1</p>
-
-          <p className="my-2">Categorie 1</p>
-          <p className="my-2">Categorie 1</p>
+          <div className="pl-4">
+            {categorie.map((categorie, index) => (
+              <p key={index} className="my-3 cursor-pointer ">
+                {" "}
+                {categorie.nameCategorie}
+              </p>
+            ))}
+          </div>
         </div>
 
         {/* NOTE: this  should be for the product price   */}
@@ -34,6 +54,8 @@ const SideBar = () => {
 };
 
 import { cn } from "@/lib/utils";
+import { fetchProducts } from "@/services/product";
+import { fetchCategorie } from "@/services/categorie";
 
 type SliderProps = React.ComponentProps<typeof Slider>;
 
