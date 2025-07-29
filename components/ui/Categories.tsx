@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useCategories } from "../hooks/useCategories";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Categories = () => {
   const { categories, error, getCategories } = useCategories();
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   if (error) {
     return <div>{error}</div>;
@@ -17,7 +17,7 @@ const Categories = () => {
     <div className="flex flex-col gap-4 text-secondary font-[600] lg:min-w-[18rem]">
       {categories?.map((category: string) => (
         <Link
-          to={`/store/${category}`}
+          href={`/shop?category=${category}`}
           key={category}
           className="grid grid-cols-2 text-[1rem] font-bold stroke-secondary transition-all hover:text-black hover:stroke-black"
         >

@@ -1,22 +1,38 @@
-export const fetchProducts = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCT_LIST_API}products`,
-      {
-        headers: {
-          "Content-Type": "application/json", // Example header
-        },
-        method: "GET",
-      },
-    );
+import { apiClient } from './api';
+import { Product, ProductFilters } from '../types';
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch products");
+export const fetchProducts = async (filters?: ProductFilters): Promise<Product[]> => {
+  try {
+    let endpoint = 'products';
+    
+    if (filters?.categoryId) {
+      endpoint = `products/${filters.categoryId}`;
     }
 
-    const products = await response.json();
+    const products = await apiClient.get<Product[]>(endpoint);
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
+export const fetchProductById = async (id: string): Promise<Product> => {
+  try {
+    const product = await apiClient.get<Product>(`product/${id}`);
+    return product;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw error;
+  }
+};
+
+export const createProduct = async (productData: Omit<Product, 'idProduct' | 'createdAt'>): Promise<Product> => {
+  try {
+    const product = await apiClient.post<Product>('product', productData);
+    return product;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    throw error;
   }
 };

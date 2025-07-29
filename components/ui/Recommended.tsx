@@ -12,13 +12,13 @@ const Recommended = ({ product }: RecommendedProps) => {
 
   const shortproduct = products
     .filter((p) => {
-      return p.id !== Number(product?.id);
+      return p.id !== product?.id;
     })
     .slice(0, 4);
 
   useEffect(() => {
     getProducts(1, "", product?.category);
-  }, [product]);
+  }, [getProducts, product]);
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

@@ -19,19 +19,29 @@ const config = {
     },
     extend: {
       colors: {
+        // Keep existing shadcn colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        // Override primary, secondary, accent with new design colors
+        primary: "#333333",
+        secondary: "#666666", 
+        accent: "#4a4a4a",
+        // Custom gray scale
+        gray: {
+          100: "#f7f7f7",
+          200: "#e9e9e9", 
+          300: "#d1d1d1",
+          400: "#a8a8a8",
+          500: "#6b6b6b",
+          600: "#545454",
+          700: "#333333",
+          800: "#1f1f1f",
+          900: "#121212"
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
+        // Keep other shadcn colors
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -39,10 +49,6 @@ const config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -52,6 +58,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

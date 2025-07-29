@@ -14,7 +14,7 @@ const ProductList: React.FC<ProductListProps> = ({search = "", category=""}) => 
 
   useEffect(() => {
     getProducts(4, search, category)
-  }, [search, category])
+  }, [getProducts, search, category])
 
   if (loading) { return <Spinner />}
   if (error) { return <div>{error}</div>}

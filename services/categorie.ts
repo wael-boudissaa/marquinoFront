@@ -1,22 +1,15 @@
-export const fetchCategorie = async () => {
+import { apiClient } from './api';
+import { Category } from '../types';
+
+export const fetchCategories = async (): Promise<Category[]> => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PRODUCT_LIST_API}categories`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "GET",
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch categories");
-    }
-
-    const categories = await response.json();
+    const categories = await apiClient.get<Category[]>('categories');
     return categories;
-  } catch (err) {
-    throw new Error("Failed to fetch categories");
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
   }
 };
+
+// Keep the old function name for backwards compatibility
+export const fetchCategorie = fetchCategories;

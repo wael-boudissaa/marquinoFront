@@ -24,7 +24,7 @@ function AddToCartBtn({
   useEffect(() => {
     const itemInCart = cartItems.some((item) => item.id === product.id);
     setIsInCart(itemInCart);
-  },[cartItems])
+  }, [cartItems, product.id])
 
   return (
     <button
