@@ -7,7 +7,7 @@ export interface Profile {
   password?: string;
   createdAt: string;
   refreshToken?: string;
-  type: 'customer' | 'admin';
+  type: 'customer';
   address: string;
   lastLogin: string;
 }
@@ -18,11 +18,6 @@ export interface Customer {
   profile?: Profile;
 }
 
-export interface Admin {
-  idAdmin: string;
-  idProfile: string;
-  profile?: Profile;
-}
 
 export interface LoginRequest {
   email: string;
@@ -46,6 +41,7 @@ export interface AuthResponse {
 export interface Category {
   idCategorie: string;
   nameCategorie: string;
+  imageUrl?: string;
 }
 
 export interface Product {
@@ -58,6 +54,7 @@ export interface Product {
   stock: number;
   dateExpiration?: string;
   createdAt: string;
+  imageUrl?: string;
   category?: Category;
 }
 
@@ -156,10 +153,15 @@ export interface ProductFilters {
 }
 
 export interface PaginationData {
-  page: number;
-  limit: number;
-  total: number;
+  currentPage: number;
   totalPages: number;
+  totalItems: number;
+  limit: number;
+}
+
+export interface PaginatedProductsResponse {
+  products: Product[];
+  pagination: PaginationData;
 }
 
 // Error Types

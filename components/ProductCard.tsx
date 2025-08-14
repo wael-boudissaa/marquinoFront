@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "../types";
+import { useEffect, useState } from "react";
+import { fetchAverageRating, fetchProductRatings } from "../services/feedback";
 
 interface ProductCardProps {
   product: Product;
@@ -12,17 +14,38 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, showBadge = false, badgeText, badgeType = 'sale' }: ProductCardProps) => {
+  const [averageRating, setAverageRating] = useState<number>(0);
+  const [reviewCount, setReviewCount] = useState<number>(0);
+  const [imageError, setImageError] = useState<boolean>(false);
+  
   // Convert backend product to display format
   const displayPrice = product.price;
   const productName = product.nameProduct;
   const categoryName = product.category?.nameCategorie || 'Product';
   
-  // For now, use placeholder image if no image available
-  const productImage = `https://storage.googleapis.com/uxpilot-auth.appspot.com/eac92acbd7-987a5dd2851c651246c6.png`;
+  // Use product image or fallback to placeholder
+  const fallbackImage = `https://images.unsplash.com/photo-1560472354-c5b3b79b1ba8?w=500&h=400&fit=crop&crop=center`;
+  const productImage = (product.imageUrl && !imageError) ? product.imageUrl : fallbackImage;
   
-  // Mock rating for now - this could come from a ratings service
-  const rating = 4;
-  const reviewCount = Math.floor(Math.random() * 50) + 5;
+  useEffect(() => {
+    const loadRatingData = async () => {
+      try {
+        // Fetch average rating and ratings count
+        const [avgRating, ratings] = await Promise.all([
+          fetchAverageRating(product.idProduct),
+          fetchProductRatings(product.idProduct)
+        ]);
+        
+        setAverageRating(avgRating);
+        setReviewCount(ratings?.length || 0);
+      } catch (error) {
+        console.error('Error loading rating data:', error);
+        // Keep default values (0) if there's an error
+      }
+    };
+
+    loadRatingData();
+  }, [product.idProduct]);
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden group">
@@ -33,6 +56,7 @@ const ProductCard = ({ product, showBadge = false, badgeText, badgeType = 'sale'
             src={productImage}
             alt={`${productName} - ${categoryName}`}
             fill
+            onError={() => setImageError(true)}
           />
           {showBadge && badgeText && (
             <span className="absolute top-2 left-2 bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded">
@@ -58,10 +82,12 @@ const ProductCard = ({ product, showBadge = false, badgeText, badgeType = 'sale'
           {[...Array(5)].map((_, index) => (
             <i 
               key={index}
-              className={index < rating ? "fa-solid fa-star" : "fa-regular fa-star"}
+              className={index < Math.round(averageRating) ? "fa-solid fa-star" : "fa-regular fa-star"}
             ></i>
           ))}
-          <span className="text-gray-500 text-xs ml-1">({reviewCount})</span>
+          <span className="text-gray-500 text-xs ml-1">
+            {reviewCount > 0 ? `(${reviewCount})` : '(No reviews)'}
+          </span>
         </div>
         <div className="flex justify-between items-center">
           <div>

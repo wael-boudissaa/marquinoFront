@@ -28,10 +28,10 @@ export default function ProductRating({ productId, showForm = true }: ProductRat
     try {
       setLoading(true);
       const productRatings = await fetchProductRatings(productId);
-      setRatings(productRatings);
+      setRatings(productRatings || []); // Ensure we always have an array
     } catch (err: any) {
       console.error('Error fetching ratings:', err);
-      // Don't show error for ratings as it's not critical
+      setRatings([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
@@ -59,14 +59,31 @@ export default function ProductRating({ productId, showForm = true }: ProductRat
       // Hide success message after 3 seconds
       setTimeout(() => setSuccess(false), 3000);
     } catch (err: any) {
-      setError(err.message || 'Failed to submit rating');
+      console.log('Rating error details:', err); // Debug logging
+      let errorMessage = 'Failed to submit rating';
+      
+      if (err.status === 401) {
+        errorMessage = 'Please log in to rate this product';
+      } else if (err.status === 400 && err.message && err.message.includes('already rated')) {
+        errorMessage = 'You have already rated this product';
+      } else if (err.message) {
+        // Parse the error message if it's JSON
+        try {
+          const parsed = JSON.parse(err.message);
+          errorMessage = parsed.error || errorMessage;
+        } catch {
+          errorMessage = err.message;
+        }
+      }
+      
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }
   };
 
   const calculateAverageRating = () => {
-    if (ratings.length === 0) return 0;
+    if (!ratings || ratings.length === 0) return 0;
     const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
     return sum / ratings.length;
   };
@@ -120,7 +137,7 @@ export default function ProductRating({ productId, showForm = true }: ProductRat
         <span className="ml-2 text-sm text-gray-600">
           {averageRating > 0 ? (
             <>
-              {averageRating.toFixed(1)} out of 5 ({ratings.length} {ratings.length === 1 ? 'review' : 'reviews'})
+              {averageRating.toFixed(1)} out of 5 ({ratings?.length || 0} {(ratings?.length || 0) === 1 ? 'review' : 'reviews'})
             </>
           ) : (
             'No ratings yet'
@@ -175,7 +192,7 @@ export default function ProductRating({ productId, showForm = true }: ProductRat
       )}
 
       {/* Individual Ratings */}
-      {ratings.length > 0 && (
+      {ratings && ratings.length > 0 && (
         <div className="border-t pt-4 mt-4">
           <h4 className="text-md font-medium text-gray-900 mb-3">Recent Reviews:</h4>
           <div className="space-y-2 max-h-32 overflow-y-auto">

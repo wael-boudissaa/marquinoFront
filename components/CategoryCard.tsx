@@ -7,10 +7,9 @@ import { Category } from "../types";
 interface CategoryCardProps {
   category: Category;
   productCount?: number;
-  imageUrl?: string;
 }
 
-const CategoryCard = ({ category, productCount = 0, imageUrl }: CategoryCardProps) => {
+const CategoryCard = ({ category, productCount = 0 }: CategoryCardProps) => {
   // Default category images mapping
   const defaultImages: { [key: string]: string } = {
     'living room': 'https://storage.googleapis.com/uxpilot-auth.appspot.com/83b5ab5309-357e4dd4f553536d21ab.png',
@@ -23,7 +22,8 @@ const CategoryCard = ({ category, productCount = 0, imageUrl }: CategoryCardProp
 
   const categoryName = category.nameCategorie;
   const categoryKey = categoryName.toLowerCase();
-  const displayImage = imageUrl || defaultImages[categoryKey] || defaultImages['decor'];
+  // Prioritize database image, then fallback to default mapping, then to decor
+  const displayImage = category.imageUrl || defaultImages[categoryKey] || defaultImages['decor'];
 
   return (
     <Link href={`/shop?category=${category.idCategorie}`}>

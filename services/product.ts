@@ -1,5 +1,5 @@
 import { apiClient } from './api';
-import { Product, ProductFilters } from '../types';
+import { Product, ProductFilters, PaginatedProductsResponse } from '../types';
 
 export const fetchProducts = async (filters?: ProductFilters): Promise<Product[]> => {
   try {
@@ -23,6 +23,16 @@ export const fetchProductById = async (id: string): Promise<Product> => {
     return product;
   } catch (error) {
     console.error("Error fetching product:", error);
+    throw error;
+  }
+};
+
+export const fetchPaginatedProducts = async (page: number = 1, limit: number = 12): Promise<PaginatedProductsResponse> => {
+  try {
+    const response = await apiClient.get<PaginatedProductsResponse>(`products/paginated?page=${page}&limit=${limit}`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching paginated products:", error);
     throw error;
   }
 };

@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
-import { fetchProducts } from "../../services/product";
+import { fetchProducts, fetchPaginatedProducts } from "../../services/product";
 import { fetchCategories } from "../../services/categorie";
-import { Product, Category } from "../../types";
+import { Product, Category, PaginationData } from "../../types";
+import Pagination from "../../components/Pagination";
 
 const ShopPage = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Products");
@@ -16,17 +17,25 @@ const ShopPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pagination, setPagination] = useState<PaginationData | null>(null);
+    const [allProducts, setAllProducts] = useState<Product[]>([]); // For category filtering
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const [productsData, categoriesData] = await Promise.all([
-                    fetchProducts(),
-                    fetchCategories()
+                const [categoriesData, allProductsData] = await Promise.all([
+                    fetchCategories(),
+                    fetchProducts() // Get all products for category filtering
                 ]);
 
-                setProducts(productsData);
                 setCategories(categoriesData);
+                setAllProducts(allProductsData);
+                
+                // Load first page of paginated products
+                const paginatedData = await fetchPaginatedProducts(1, 12);
+                setProducts(paginatedData.products);
+                setPagination(paginatedData.pagination);
             } catch (error) {
                 console.error('Error loading shop data:', error);
             } finally {
@@ -37,10 +46,52 @@ const ShopPage = () => {
         loadData();
     }, []);
 
-    // Filter products based on selected category
-    const filteredProducts = selectedCategory === "All Products"
-        ? products
-        : products.filter(product => product.category?.nameCategorie === selectedCategory);
+    // Effect to handle pagination when page changes
+    useEffect(() => {
+        if (selectedCategory === "All Products") {
+            loadPaginatedProducts(currentPage);
+        }
+    }, [currentPage]);
+
+    // Effect to handle category changes
+    useEffect(() => {
+        setCurrentPage(1); // Reset to first page when category changes
+        if (selectedCategory === "All Products") {
+            loadPaginatedProducts(1);
+        } else {
+            // Find the category ID for the selected category name
+            const selectedCategoryObj = categories.find(cat => cat.nameCategorie === selectedCategory);
+            if (selectedCategoryObj) {
+                // Filter products by category ID
+                const filtered = allProducts.filter(product => 
+                    product.idCategorie === selectedCategoryObj.idCategorie
+                );
+                setProducts(filtered);
+                setPagination(null); // No pagination for filtered results
+            } else {
+                setProducts([]);
+            }
+        }
+    }, [selectedCategory, allProducts, categories]);
+
+    const loadPaginatedProducts = async (page: number) => {
+        try {
+            setLoading(true);
+            const paginatedData = await fetchPaginatedProducts(page, 12);
+            setProducts(paginatedData.products);
+            setPagination(paginatedData.pagination);
+        } catch (error) {
+            console.error('Error loading paginated products:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    // Products are already filtered based on selection
 
     return (
         <div className="bg-white font-sans">
@@ -135,7 +186,7 @@ const ShopPage = () => {
                                         >
                                             All Products
                                         </span>
-                                        <span className="text-gray-500 text-sm">{products.length}</span>
+                                        <span className="text-gray-500 text-sm">{allProducts.length}</span>
                                     </li>
                                     {categories.map((category) => (
                                         <li key={category.idCategorie} className="flex items-center justify-between">
@@ -146,7 +197,7 @@ const ShopPage = () => {
                                                 {category.nameCategorie}
                                             </span>
                                             <span className="text-gray-500 text-sm">
-                                                {products.filter(p => p.category?.nameCategorie === category.nameCategorie).length}
+                                                {allProducts.filter(p => p.idCategorie === category.idCategorie).length}
                                             </span>
                                         </li>
                                     ))}
@@ -204,8 +255,8 @@ const ShopPage = () => {
                                             </div>
                                         </div>
                                     ))
-                                ) : filteredProducts.length > 0 ? (
-                                    filteredProducts.map((product, index) => (
+                                ) : products.length > 0 ? (
+                                    products.map((product, index) => (
                                         <ProductCard
                                             key={product.idProduct}
                                             product={product}
@@ -222,20 +273,12 @@ const ShopPage = () => {
                             </div>
 
                             {/* Pagination */}
-                            <div className="mt-12 flex justify-center">
-                                <div className="flex space-x-1">
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">
-                                        <i className="fa-solid fa-chevron-left text-gray-600"></i>
-                                    </button>
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md bg-gray-700 text-white">1</button>
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">2</button>
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">3</button>
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">4</button>
-                                    <button className="w-10 h-10 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">
-                                        <i className="fa-solid fa-chevron-right text-gray-600"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            {pagination && selectedCategory === "All Products" && (
+                                <Pagination 
+                                    pagination={pagination} 
+                                    onPageChange={handlePageChange} 
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

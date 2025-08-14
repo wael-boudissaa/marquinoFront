@@ -40,3 +40,13 @@ export const fetchProductRatings = async (productId: string): Promise<Rating[]> 
     throw error;
   }
 };
+
+export const fetchAverageRating = async (productId: string): Promise<number> => {
+  try {
+    const response = await apiClient.get<{ averageRating: number }>(`ratings/average/${productId}`);
+    return response.averageRating;
+  } catch (error) {
+    console.error("Error fetching average rating:", error);
+    return 0; // Return 0 if no ratings found
+  }
+};

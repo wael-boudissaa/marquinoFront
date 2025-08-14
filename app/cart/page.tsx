@@ -133,17 +133,26 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="space-y-4">
-              {cart.items.map((item) => (
-                <div key={item.product.idProduct} className="flex items-center space-x-4 bg-white p-6 rounded-lg shadow-sm border">
-                  <div className="flex-shrink-0">
-                    <Image
-                      src="/images/product1.png"
-                      alt={item.product.nameProduct}
-                      width={80}
-                      height={80}
-                      className="rounded-md object-cover"
-                    />
-                  </div>
+              {cart.items.map((item) => {
+                // Use product image or fallback
+                const fallbackImage = 'https://images.unsplash.com/photo-1560472354-c5b3b79b1ba8?w=500&h=400&fit=crop&crop=center';
+                const productImage = item.product.imageUrl || fallbackImage;
+                
+                return (
+                  <div key={item.product.idProduct} className="flex items-center space-x-4 bg-white p-6 rounded-lg shadow-sm border">
+                    <div className="flex-shrink-0">
+                      <Image
+                        src={productImage}
+                        alt={item.product.nameProduct}
+                        width={80}
+                        height={80}
+                        className="rounded-md object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = fallbackImage;
+                        }}
+                      />
+                    </div>
                   
                   <div className="flex-1">
                     <h3 className="text-lg font-medium text-gray-900">
@@ -186,7 +195,8 @@ export default function CartPage() {
                     </button>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

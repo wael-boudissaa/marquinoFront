@@ -80,13 +80,12 @@ export default function ProductDetailPage() {
   const currentCartQuantity = product ? getCartItemQuantity(product.idProduct) : 0;
   const maxQuantity = product ? Math.min(10, product.stock - currentCartQuantity) : 0;
 
-  // Mock product images - in real app, these would come from the backend
-  const productImages = [
-    '/images/product1.png',
-    '/images/product1.png',
-    '/images/product1.png',
-    '/images/product1.png'
-  ];
+  // Use product image or fallback
+  const fallbackImage = 'https://images.unsplash.com/photo-1560472354-c5b3b79b1ba8?w=500&h=400&fit=crop&crop=center';
+  const productImage = product?.imageUrl || fallbackImage;
+  
+  // For now, use single image for all views (can be extended for multiple images later)
+  const productImages = [productImage, productImage, productImage, productImage];
 
   const colors = ['Black', 'White', 'Brown', 'Gray'];
   const sizes = ['Small', 'Medium', 'Large', 'Extra Large'];
