@@ -44,7 +44,7 @@ const categories: Categorie[] = [
 ];
 
 const [currentIndexCategorie, setCurrentIndexCategorie] =
-  React.useStateuseState(1);
+  React.useState(1);
 const visibleCategories = categories.slice(
   currentIndexCategorie,
   currentIndexCategorie + 4,

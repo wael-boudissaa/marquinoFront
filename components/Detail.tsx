@@ -1,25 +1,25 @@
-import { useParams } from "react-router";
-import { useProductDetail } from "../hooks/useProductDetail";
+import { useParams } from "next/navigation";
+import { useProductDetail } from "./hooks/useProductDetail";
 import { useEffect } from "react";
-import Spinner from "../components/Spinner";
-import ImageCarousel from "../components/ImageCarousell";
-import Icon from "../components/Icon";
-import creditCard from "../assets/icons/creditCard.svg";
-import star from "../assets/icons/star.svg";
-import truck from "../assets/icons/truck.svg";
-import repeat from "../assets/icons/repeat.svg";
-import AddToCartBtn from "../components/addToCartBtn";
-import Section from "../components/Section";
-import Recommended from "../components/Recommended";
-import { Link } from "react-router-dom";
+import Spinner from "./ui/Spinner";
+import ImageCarousel from "./ui/ImageCarousell";
+import Icon from "./ui/Icon";
+import creditCard from "./ui/assets/icons/creditCard.svg";
+import star from "./ui/assets/icons/star.svg";
+import truck from "./ui/assets/icons/truck.svg";
+import repeat from "./ui/assets/icons/repeat.svg";
+import AddToCartBtn from "./ui/addToCartBtn";
+import Section from "./Section";
+import Recommended from "./ui/Recommended";
+import Link from "next/link";
 
 function Detail() {
-  const { product, getProduct, loading, error } = useProductDetail();
+  const { product, getProductDetail, loading, error } = useProductDetail();
   const { id } = useParams();
 
   useEffect(() => {
-    getProduct(Number(id));
-  }, [id, getProduct]);
+    getProductDetail(String(id));
+  }, [id, getProductDetail]);
 
   if (loading) {
     return <Spinner />;
@@ -34,7 +34,7 @@ function Detail() {
         </h1>
 
         <Link
-          to="/shop"
+          href="/shop"
           className="w-full lg:w-[50%] mt-6 bg-main flex items-center justify-center text-lg text-white px-10 py-3 gap-3 font-semibold rounded-lg hover:scale-110 transition-transform"
         >
           <button className="flex items-center gap-2">Shop</button>
@@ -49,7 +49,13 @@ function Detail() {
         {product && (
           <div className="flex-row lg:flex gap-12">
             <div className="mx-[-1rem]">
-              <ImageCarousel images={product.image} />
+              {product.image && Array.isArray(product.image) && product.image[0] && (
+                <img 
+                  src={product.image[0]} 
+                  alt={product.title}
+                  className="w-full h-96 object-cover rounded-lg"
+                />
+              )}
             </div>
 
             <div>

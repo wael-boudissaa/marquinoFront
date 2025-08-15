@@ -1,9 +1,9 @@
-import ProductList from "../components/ProductList";
-import Filters from "../components/Filters";
-import Modal from "../components/Modal";
-import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
-import filterIcon from "../assets/icons/filter.svg";
+import ProductList from "./ui/ProductList";
+import Filters from "./ui/Filters";
+import Modal from "./ui/Modal";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import filterIcon from "./ui/assets/icons/filter.svg";
 import { useState } from "react";
 
 function Store() {
@@ -14,10 +14,10 @@ function Store() {
   const searchTerm = search ?? "";
   const categoryTerm = category ?? "all";
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleClearFilter = () => {
-    navigate("/store/all");
+    router.push("/shop");
   };
 
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);

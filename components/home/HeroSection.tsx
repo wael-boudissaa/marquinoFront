@@ -17,7 +17,7 @@ const HeroSection = () => {
             title="Summer Value Pack"
             subtitle="Category placehldr"
             textLocation="left"
-            imgLink={banner1}
+            imgLink={banner1.src}
             btnLink="/store"
             btnText="Shop Now"
             btnTransparent={false}
@@ -26,7 +26,7 @@ const HeroSection = () => {
             title="Summer Value Pack 2"
             subtitle="Category placehldr"
             textLocation="left"
-            imgLink={banner2}
+            imgLink={banner2.src}
             btnLink="/store"
             btnText="Shop Now"
             btnTransparent={false}

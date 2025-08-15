@@ -1,9 +1,10 @@
 import Image from 'next/image';
+import { StaticImageData } from 'next/image';
 
 interface TestimonialCardProps {
-  img: string;
+  img: string | StaticImageData;
   name: string;
-  role: string;
+  role?: string;
   children: React.ReactNode;
 }
 
@@ -20,7 +21,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ img, name, role, chil
           />
         </div>
         <h3 className="font-bold text-lg text-gray-900 mb-1">{name}</h3>
-        <p className="text-sm text-blue-600 font-medium mb-3">{role}</p>
+        {role && <p className="text-sm text-blue-600 font-medium mb-3">{role}</p>}
         <p className="text-gray-600 text-sm leading-relaxed">{children}</p>
       </div>
     </div>

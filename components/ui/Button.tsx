@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-function Button({ transparent = false, btnLink = "/", btnText = "Open" }) {
+interface ButtonProps {
+  transparent?: boolean;
+  btnLink?: string;
+  btnText?: string;
+}
+
+function Button({ transparent = false, btnLink = "/", btnText = "Open" }: ButtonProps) {
   const btnStyle = transparent
     ? "backdrop-blur-md text-white hover:bg-white hover:text-black"
     : "bg-white text-black hover:bg-transparent hover:text-white";

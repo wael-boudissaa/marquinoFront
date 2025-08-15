@@ -1,13 +1,13 @@
-import Hero from "../components/Hero";
-import Card from "../components/Card";
-import Section from "../components/Section";
-import Carrousel from "../components/Carrousel";
-import banner2 from "../assets/images/banners/banner2.webp";
-import banner1 from "../assets/images/banners/banner1.webp";
-import banner3 from "../assets/images/banners/banner3.webp";
-import banner4 from "../assets/images/banners/banner4.webp";
-import banner5 from "../assets/images/banners/banner5.webp";
-import banner6 from "../assets/images/banners/banner6.webp";
+import Hero from "./ui/Hero";
+import Card from "./ui/Card";
+import Section from "./Section";
+import Carrousel from "./ui/Carrousel";
+import banner2 from "./ui/assets/images/banners/banner2.webp";
+import banner1 from "./ui/assets/images/banners/banner1.webp";
+import banner3 from "./ui/assets/images/banners/banner3.webp";
+import banner4 from "./ui/assets/images/banners/banner4.webp";
+import banner5 from "./ui/assets/images/banners/banner5.webp";
+import banner6 from "./ui/assets/images/banners/banner6.webp";
 
 function Home() {
   return (
@@ -20,7 +20,7 @@ function Home() {
               title="Summer Value Pack"
               subtitle="Category placehldr"
               textLocation="left"
-              imgLink={banner1}
+              imgLink={banner1.src}
               btnLink="/store"
               btnText="Shop Now"
               btnTransparent={false}
@@ -29,7 +29,7 @@ function Home() {
               title="Summer Value Pack 2"
               subtitle="Category placehldr"
               textLocation="left"
-              imgLink={banner2}
+              imgLink={banner2.src}
               btnLink="/store"
               btnText="Shop Now"
               btnTransparent={false}
@@ -47,7 +47,7 @@ function Home() {
               title="High Coziness"
               subtitle="Category placehldr"
               textLocation="left"
-              imgLink={banner3}
+              imgLink={banner3.src}
               btnLink="/store"
               btnText="Shop Now"
               btnTransparent
@@ -59,7 +59,7 @@ function Home() {
               title="Summer Style"
               subtitle="Category placehldr"
               textLocation="left"
-              imgLink={banner2}
+              imgLink={banner2.src}
               btnLink="/store"
               btnText="Shop Now"
               btnTransparent
@@ -76,7 +76,7 @@ function Home() {
                   title="Hawaiian Shirts"
                   subtitle="Category placehldr"
                   textLocation="left"
-                  imgLink={banner1}
+                  imgLink={banner1.src}
                   btnLink="/store"
                   btnText="Shop Now"
                   btnTransparent
@@ -86,7 +86,7 @@ function Home() {
                   title="Printed T-Shirt"
                   subtitle="Category placehldr"
                   textLocation="right"
-                  imgLink={banner4}
+                  imgLink={banner4.src}
                   btnLink="/store"
                   btnText="Shop Now"
                   btnTransparent
@@ -96,7 +96,7 @@ function Home() {
                   title="Cargo Joggers"
                   subtitle="Category placehldr"
                   textLocation="right"
-                  imgLink={banner5}
+                  imgLink={banner5.src}
                   btnLink="/store"
                   btnText="Shop Now"
                   btnTransparent
@@ -107,7 +107,7 @@ function Home() {
                   title="Urban Shirts"
                   subtitle="Category placehldr"
                   textLocation="right"
-                  imgLink={banner5}
+                  imgLink={banner5.src}
                   btnLink="/store"
                   btnText="Shop Now"
                   btnTransparent
@@ -117,7 +117,7 @@ function Home() {
                   title="Oversized"
                   subtitle="Category placehldr"
                   textLocation="right"
-                  imgLink={banner6}
+                  imgLink={banner6.src}
                   btnLink="/store"
                   btnText="Shop Now"
                   btnTransparent

@@ -1,10 +1,11 @@
 import Button from "./Button";
+import { StaticImageData } from 'next/image';
 
 type CardProps = {
   title: string;
   subtitle: string;
   textLocation: "left" | "right";
-  imgLink: string;
+  imgLink: string | StaticImageData;
   btnLink: string;
   btnText: string;
   btnTransparent: boolean;
@@ -27,7 +28,7 @@ const Card: React.FC<CardProps> = ({
       className={`overflow-hidden bg-cover bg-no-repeat h-full rounded-lg`}
       style={{
         backgroundPosition: "60% 10%",
-        backgroundImage: `url(${imgLink})`,
+        backgroundImage: `url(${typeof imgLink === 'string' ? imgLink : imgLink.src})`,
       }}
     >
       <div className="h-full w-full bg-black bg-opacity-20 text-white">
@@ -36,6 +37,7 @@ const Card: React.FC<CardProps> = ({
         >
           <h1 className="text-2xl font-bold">{title}</h1>
           <h2 className="text-md font-bold">{subtitle}</h2>
+
           <div className="w-full mt-12 lg:w-[50%]">
             <Button
               transparent={btnTransparent}

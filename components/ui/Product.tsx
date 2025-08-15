@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ProductType } from "../types";
 
 const Product = ({ product }: { product: ProductType }) => {
   return (
-    <Link to={`/product/${product.id}`}>
+    <Link href={`/product/${product.id}`}>
       <div
         key={product.id}
         className="mx-auto max-w-md min-w-full flex mb-10  flex-col gap-2 "

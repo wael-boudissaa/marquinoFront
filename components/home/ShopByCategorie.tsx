@@ -119,7 +119,7 @@ const ShopCard = () => {
     </div>
   );
 };
-const CategorieCard = ({ name, image }) => {
+const CategorieCard = ({ name, image }: { name: string, image: string }) => {
   return (
     <div
       style={{
