@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Test</title>
+</head>
+<body>
+    <h1>Testing Backend Connection</h1>
+    <button onclick="testConnection()">Test Backend</button>
+    <div id="result"></div>
+
+    <script>
+        async function testConnection() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                // Test debug endpoint
+                const debugResponse = await fetch('https://marquinopostgress.onrender.com/debug-products');
+                const debugData = await debugResponse.text();
+                
+                // Test products endpoint  
+                const productsResponse = await fetch('https://marquinopostgress.onrender.com/products');
+                const productsData = await productsResponse.text();
+                
+                resultDiv.innerHTML = `
+                    <h3>Debug endpoint (should work):</h3>
+                    <p>Status: ${debugResponse.status}</p>
+                    <p>Data: ${debugData}</p>
+                    
+                    <h3>Products endpoint:</h3>
+                    <p>Status: ${productsResponse.status}</p>
+                    <p>Data: ${productsData}</p>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

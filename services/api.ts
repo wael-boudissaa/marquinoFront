@@ -59,6 +59,8 @@ class ApiClient {
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'GET',
       headers: this.getHeaders(),
+      // Add timeout for deployed backend
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     return this.handleResponse<T>(response);
@@ -69,6 +71,8 @@ class ApiClient {
       method: 'POST',
       headers: this.getHeaders(),
       body: data ? JSON.stringify(data) : undefined,
+      // Add timeout for deployed backend
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     return this.handleResponse<T>(response);
@@ -79,6 +83,8 @@ class ApiClient {
       method: 'PUT',
       headers: this.getHeaders(),
       body: data ? JSON.stringify(data) : undefined,
+      // Add timeout for deployed backend
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     return this.handleResponse<T>(response);
@@ -88,6 +94,8 @@ class ApiClient {
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'DELETE',
       headers: this.getHeaders(),
+      // Add timeout for deployed backend
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     return this.handleResponse<T>(response);

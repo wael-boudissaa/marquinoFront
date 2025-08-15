@@ -50,21 +50,21 @@ export default function AboutUsPage() {
             <div>
               <h3 className="text-2xl font-semibold text-primary mb-4">From Humble Beginnings</h3>
               <p className="text-secondary mb-6 leading-relaxed">
-                Our journey began in a small workshop in Brooklyn, where our founder Michael Marquino crafted custom pieces for local clients. His dedication to quality and attention to detail quickly earned a reputation that spread beyond the neighborhood.
+                Our journey began in a small workshop in Brooklyn, where our founder Wael Marquino crafted custom pieces for local clients. His dedication to quality and attention to detail quickly earned a reputation that spread beyond the neighborhood.
               </p>
               <p className="text-secondary mb-6 leading-relaxed">
                 As demand grew, so did our team of skilled artisans. Each bringing their unique expertise and passion for craftsmanship. Today, while we've expanded significantly, we maintain the same core values and hands-on approach that defined our early days.
               </p>
               <div className="flex items-center">
-                <Image 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" 
-                  alt="Michael Marquino" 
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 rounded-full mr-4 object-cover"
-                />
+                {/* <Image  */}
+                {/*   src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"  */}
+                {/*   alt="wael Marquino"  */}
+                {/*   width={64} */}
+                {/*   height={64} */}
+                {/*   className="w-16 h-16 rounded-full mr-4 object-cover" */}
+                {/* /> */}
                 <div>
-                  <h4 className="font-medium text-primary">Michael Marquino</h4>
+                  <h4 className="font-medium text-primary">Wael Marquino</h4>
                   <p className="text-secondary text-sm">Founder & Creative Director</p>
                 </div>
               </div>
@@ -113,106 +113,6 @@ export default function AboutUsPage() {
               <p className="text-secondary text-center">
                 We blend timeless aesthetics with contemporary functionality, creating pieces that are both beautiful and practical for modern living.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Team Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-primary mb-4">Meet Our Team</h2>
-            <p className="text-secondary max-w-2xl mx-auto">The talented individuals who bring our vision to life through their expertise, creativity, and dedication.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Team Member 1 */}
-            <div className="text-center">
-              <div className="relative h-64 mb-4 rounded-lg overflow-hidden">
-                <Image 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" 
-                  alt="Michael Marquino"
-                  fill
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-primary mb-1">Michael Marquino</h3>
-              <p className="text-secondary mb-3">Founder & Creative Director</p>
-              <div className="flex justify-center space-x-3">
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-linkedin"></i>
-                </span>
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-twitter"></i>
-                </span>
-              </div>
-            </div>
-            
-            {/* Team Member 2 */}
-            <div className="text-center">
-              <div className="relative h-64 mb-4 rounded-lg overflow-hidden">
-                <Image 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" 
-                  alt="Sarah Johnson"
-                  fill
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-primary mb-1">Sarah Johnson</h3>
-              <p className="text-secondary mb-3">Head of Design</p>
-              <div className="flex justify-center space-x-3">
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-linkedin"></i>
-                </span>
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-twitter"></i>
-                </span>
-              </div>
-            </div>
-            
-            {/* Team Member 3 */}
-            <div className="text-center">
-              <div className="relative h-64 mb-4 rounded-lg overflow-hidden">
-                <Image 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" 
-                  alt="David Chen"
-                  fill
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-primary mb-1">David Chen</h3>
-              <p className="text-secondary mb-3">Master Craftsman</p>
-              <div className="flex justify-center space-x-3">
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-linkedin"></i>
-                </span>
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-instagram"></i>
-                </span>
-              </div>
-            </div>
-            
-            {/* Team Member 4 */}
-            <div className="text-center">
-              <div className="relative h-64 mb-4 rounded-lg overflow-hidden">
-                <Image 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" 
-                  alt="Emily Rodriguez"
-                  fill
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-primary mb-1">Emily Rodriguez</h3>
-              <p className="text-secondary mb-3">Customer Experience</p>
-              <div className="flex justify-center space-x-3">
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-linkedin"></i>
-                </span>
-                <span className="text-gray-400 hover:text-gray-700 transition cursor-pointer">
-                  <i className="fa-brands fa-twitter"></i>
-                </span>
-              </div>
             </div>
           </div>
         </div>
